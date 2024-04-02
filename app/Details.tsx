@@ -5,23 +5,33 @@ import { useStore } from './store/store'
 import { BORDERRADIUS, COLORS, FONTFAMILY, FONTSIZE, SPACING, } from '@/constants/Colors'
 import ImageBackgroundInfo from '@/components/ImageBackgroundInfo'
 import PaymentFooter from '@/components/PaymentFooter'
-
+import { useLocalSearchParams } from "expo-router";
 
 
 
 const Details = ({navigation, route}: any) => {
+    const searchParams = useLocalSearchParams();
+console.log(searchParams);
+    const { index } = useLocalSearchParams();
+    const { id } = useLocalSearchParams<{ id: string }>();
+    const { type } = useLocalSearchParams<{ type: string }>();
+
+    console.log(index,type,id);
 
 const ItemOfIndex = useStore((state: any) =>
-    route.params.type == 'Coffee' ? state.CoffeeList : state.BeanList,
-    )[route.params.index];
+       type == 'Coffee' ? state.CoffeeList : state.BeanList,
+    )[index];
+
+    
+console.log("ItemOfIndex",ItemOfIndex);
+
 const addToFavoriteList = useStore((state: any) => state.addToFavoriteList);
 const deleteFromFavoriteList = useStore(
     (state: any) => state.deleteFromFavoriteList,
     );
 const addToCart = useStore((state: any) => state.addToCart);
 const calculateCartPrice = useStore((state: any) => state.calculateCartPrice);
-
-const [price, setPrice] = useState(ItemOfIndex.prices[0]);
+const [price, setPrice] = useState(ItemOfIndex?ItemOfIndex.length>0?ItemOfIndex.prices[0]:null:null);
 const [fullDesc, setFullDesc] = useState(false);
 
 const ToggleFavourite = (favourite: boolean, type: string, id: string) => {
@@ -54,7 +64,7 @@ return (
             contentContainerStyle={styles.ScrollViewFlex}>
         <ImageBackgroundInfo
             EnableBackHandler={true}
-            imagelink_portrait={ItemOfIndex.imagelink_portrait}
+            imagelink_portrait={ItemOfIndex?.imagelink_portrait||null}
             type={ItemOfIndex.type}
             id={ItemOfIndex.id}
             favourite={ItemOfIndex.favourite}

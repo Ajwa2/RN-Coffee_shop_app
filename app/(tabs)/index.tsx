@@ -9,6 +9,7 @@ import CoffeeCard from '@/components/CoffeeCard';
 import * as Font from 'expo-font';
 import HeaderBar from '@/components/HeaderBar';
 import { Link, router } from 'expo-router';
+import { useNavigation } from '@react-navigation/native';
 
 
 
@@ -56,6 +57,8 @@ const Home = ({}: any) => {
     useEffect(()=>{
         loadFonts();
     },[]);
+
+const navigation = useNavigation();
 
 const CoffeeList = useStore((state:any) => state.CoffeeList);
 //console.log('CoffeeList = ',CoffeeList.length)
@@ -227,19 +230,23 @@ const searchCoffee = (search: string) => {
             contentContainerStyle={styles.FlatListContainer}
             keyExtractor={item => item.id}
             renderItem={({item}) => {
+                console.log(item.index,item.id,item.type);
+                const valueTobePassed={
+                    index: item.index||null,
+                    id: item.id||null,
+                    type: item.type||null ,
+                    
+                }
+                console.log(valueTobePassed);
                 return (
                 <TouchableOpacity
-                    onPress={()=>{
-                        router.push({
-                                pathname:"/Details",
-                                params:{
-                                    index: item.index,
-                                    id: item.id,
-                                    type: item.type,
-                                }
-                            })
-                    }}
-                >
+                        onPress={() => {
+                            router.push({
+                                pathname: "/Details",
+                                params: valueTobePassed,
+                              })
+                        }}
+                        >
                 <CoffeeCard
                     id={item.id}
                     index={item.index}
@@ -372,4 +379,4 @@ const styles = StyleSheet.create({
         },
 })
 
-export default Home
+export default Home//192.168.43.82
