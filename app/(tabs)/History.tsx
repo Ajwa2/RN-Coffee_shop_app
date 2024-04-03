@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
     ScrollViewInnerView: {
         flex: 1,
         justifyContent: 'space-between',
+        marginBottom: 30
     },
     ItemContainer: {
         flex: 1,
@@ -105,12 +106,12 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.primaryOrangeHex,
         alignItems: 'center',
         justifyContent: 'center',
-        height: SPACING.space_36 * 2,
+        height: SPACING.space_36 ,
         borderRadius: BORDERRADIUS.radius_20,
     },
     ButtonText: {
         fontFamily: FONTFAMILY.poppins_semibold,
-        fontSize: FONTSIZE.size_18,
+        fontSize: FONTSIZE.size_16,
         color: COLORS.primaryWhiteHex,
     },
 })

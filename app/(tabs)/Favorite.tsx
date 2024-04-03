@@ -5,6 +5,7 @@ import { useStore } from '../store/store'
 import HeaderBar from '@/components/HeaderBar'
 import EmptyListAnimation from '@/components/EmptyListAnimation'
 import FavoritesItemCard from '@/components/FavoritesItemCard'
+import { router } from 'expo-router'
 
 const Favorite = ({navigation}:any) => {
     const FavoritesList = useStore((state: any) => state.FavoritesList);
@@ -34,11 +35,13 @@ const Favorite = ({navigation}:any) => {
                                 {FavoritesList.map((data: any) => (
                                 <TouchableOpacity
                                     onPress={() => {
-                                        navigation.push('Details', {
+                                        router.push(
+                                            {pathname:'/Details', 
+                                            params:{
                                             index: data.index,
                                             id: data.id,
                                             type: data.type,
-                                        });
+                                        }});
                                     }}
                                     key={data.id}>
                                     <FavoritesItemCard

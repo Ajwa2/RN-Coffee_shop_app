@@ -9,6 +9,7 @@ import { FontAwesome } from '@expo/vector-icons'
 import { useStore } from './store/store'
 import PaymentMethod from '@/components/PaymentMethod'
 import PopUpAnimation from '@/components/PopUpAnimation'
+import { router, useLocalSearchParams } from 'expo-router'
 
 
 const PaymentList = [
@@ -50,15 +51,17 @@ const Payment = ({navigation, route}: any) => {
         calculateCartPrice();
         setTimeout(() => {
             setShowAnimation(false);
-            navigation.navigate('History');
+            router.push('/History');
         }, 2000);
     };
+    const searchParams = useLocalSearchParams();
+    console.log('cartSearchParams' , searchParams)
 
 
     return (
         <View style={styles.ScreenContainer}>
             <StatusBar backgroundColor={COLORS.primaryBlackHex} />
-            {Animation ? (
+            {showAnimation ? (
                 <PopUpAnimation
                 style={styles.LottieAnimation}
                 source={require('../app/lottie/successful.json')}
@@ -102,12 +105,12 @@ const Payment = ({navigation, route}: any) => {
                                     <View style={styles.CreditCardRow}>
                                         <FontAwesome
                                             name="microchip"
-                                            size={FONTSIZE.size_20 * 2}
+                                            size={FONTSIZE.size_20 }
                                             color={COLORS.primaryOrangeHex}
                                         />
                                         <FontAwesome
                                             name="cc-visa"
-                                            size={FONTSIZE.size_30 * 2}
+                                            size={FONTSIZE.size_30 }
                                             color={COLORS.primaryWhiteHex}
                                         />
                                     </View>
@@ -123,7 +126,7 @@ const Payment = ({navigation, route}: any) => {
                                                 Card Holder Name
                                             </Text>
                                             <Text style={styles.CreditCardNameTitle}>
-                                                Robert Evans
+                                                Ajwa
                                             </Text>
                                         </View>
                                         <View style={styles.CreditCardDateContainer}>
@@ -155,7 +158,7 @@ const Payment = ({navigation, route}: any) => {
             </ScrollView>
             <PaymentFooter
                 buttonTitle={`Pay with ${paymentMode}`}
-                price={{price: route.params.amount, currency: '$'}}
+                price={{price: searchParams.amount, currency: '$'}}
                 buttonPressHandler={buttonPressHandler}
             />
         </View>
@@ -222,23 +225,23 @@ const styles = StyleSheet.create({
     },
     CreditCardNumberContainer: {
         flexDirection: 'row',
-        gap: SPACING.space_10,
+        gap: SPACING.space_8,
         alignItems: 'center',
     },
     CreditCardNumber: {
         fontFamily: FONTFAMILY.poppins_semibold,
-        fontSize: FONTSIZE.size_18,
+        fontSize: FONTSIZE.size_12,
         color: COLORS.primaryWhiteHex,
         letterSpacing: SPACING.space_4 + SPACING.space_2,
     },
     CreditCardNameSubitle: {
         fontFamily: FONTFAMILY.poppins_regular,
-        fontSize: FONTSIZE.size_12,
+        fontSize: FONTSIZE.size_10,
         color: COLORS.secondaryLightGreyHex,
     },
     CreditCardNameTitle: {
         fontFamily: FONTFAMILY.poppins_medium,
-        fontSize: FONTSIZE.size_18,
+        fontSize: FONTSIZE.size_14,
         color: COLORS.primaryWhiteHex,
     },
     CreditCardNameContainer: {

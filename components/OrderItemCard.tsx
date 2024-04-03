@@ -81,12 +81,13 @@ const styles = StyleSheet.create({
     },
     CardInfoContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         alignItems: 'center',
+        gap:SPACING.space_2
     },
     CardImageInfoContainer: {
         flexDirection: 'row',
-        gap: SPACING.space_20,
+        gap: SPACING.space_15,
         alignItems: 'center',
     },
     Image: {
@@ -96,17 +97,17 @@ const styles = StyleSheet.create({
     },
     CardTitle: {
         fontFamily: FONTFAMILY.poppins_medium,
-        fontSize: FONTSIZE.size_18,
+        fontSize: FONTSIZE.size_14,
         color: COLORS.primaryWhiteHex,
     },
     CardSubtitle: {
         fontFamily: FONTFAMILY.poppins_regular,
-        fontSize: FONTSIZE.size_12,
+        fontSize: FONTSIZE.size_10,
         color: COLORS.secondaryLightGreyHex,
     },
     CardCurrency: {
         fontFamily: FONTFAMILY.poppins_semibold,
-        fontSize: FONTSIZE.size_20,
+        fontSize: FONTSIZE.size_14,
         color: COLORS.primaryOrangeHex,
     },
     CardPrice: {
@@ -120,7 +121,7 @@ const styles = StyleSheet.create({
     },
     SizeBoxLeft: {
         backgroundColor: COLORS.primaryBlackHex,
-        height: 45,
+        height: 35,
         flex: 1,
         borderTopLeftRadius: BORDERRADIUS.radius_10,
         borderBottomLeftRadius: BORDERRADIUS.radius_10,
@@ -135,7 +136,7 @@ const styles = StyleSheet.create({
     },
     PriceBoxRight: {
         backgroundColor: COLORS.primaryBlackHex,
-        height: 45,
+        height: 35,
         flex: 1,
         borderTopRightRadius: BORDERRADIUS.radius_10,
         borderBottomRightRadius: BORDERRADIUS.radius_10,
@@ -146,7 +147,7 @@ const styles = StyleSheet.create({
     },
     PriceCurrency: {
         fontFamily: FONTFAMILY.poppins_semibold,
-        fontSize: FONTSIZE.size_18,
+        fontSize: FONTSIZE.size_14,
         color: COLORS.primaryOrangeHex,
     },
     Price: {
@@ -156,7 +157,7 @@ const styles = StyleSheet.create({
         flex: 1,
         textAlign: 'center',
         fontFamily: FONTFAMILY.poppins_semibold,
-        fontSize: FONTSIZE.size_18,
+        fontSize: FONTSIZE.size_14,
         color: COLORS.primaryOrangeHex,
     },
 })

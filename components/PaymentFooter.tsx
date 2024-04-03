@@ -1,30 +1,32 @@
 import { StyleSheet, Text, View, Pressable } from 'react-native'
 import React from 'react'
 import { BORDERRADIUS, COLORS, FONTFAMILY, FONTSIZE, SPACING, } from '@/constants/Colors'
+import { useLocalSearchParams } from 'expo-router';
 
 interface PriceProps {
-    price: string;
+    prices: string;
     currency: string;
     }
 
 interface PaymentFooterProps {
-    price: PriceProps;
+    prices: PriceProps;
     buttonPressHandler: any;
     buttonTitle: string;
     }
 
 const PaymentFooter : React.FC<PaymentFooterProps> = ({
-    price,
+    prices,
     buttonPressHandler,
     buttonTitle,
     }) => {
+        const searchParams = useLocalSearchParams();
 
     return (
         <View style={styles.PriceFooter}>
             <View style={styles.PriceContainer}>
                 <Text style={styles.PriceTitle}>Price</Text>
                 <Text style={styles.PriceText}>
-                    {price.currency} <Text style={styles.Price}>{price.price}</Text>
+                    {searchParams.currency} <Text style={styles.Price}>{searchParams.prices}</Text>
                 </Text>
             </View>
             <Pressable
@@ -42,7 +44,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         gap: SPACING.space_20,
-        padding: SPACING.space_12,
+        padding: SPACING.space_8,
     },
     PriceContainer: {
         alignItems: 'center',
@@ -71,7 +73,7 @@ const styles = StyleSheet.create({
     },
     ButtonText: {
         fontFamily: FONTFAMILY.poppins_semibold,
-        fontSize: FONTSIZE.size_16,
+        fontSize: FONTSIZE.size_10,
         color: COLORS.primaryWhiteHex,
     },
 })

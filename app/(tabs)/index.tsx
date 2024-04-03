@@ -118,7 +118,6 @@ const searchCoffee = (search: string) => {
         );
     };
 
-
     return (
         <SafeAreaView style={styles.ScreenContainer}>
         <StatusBar backgroundColor={COLORS.primaryBlackHex} />
@@ -205,6 +204,7 @@ const searchCoffee = (search: string) => {
                         : {},
                     ]}>
                     {data}
+                    
                 </Text>
                 {categoryIndex.index == index ? (
                     <View style={styles.ActiveCategory} />
@@ -230,7 +230,7 @@ const searchCoffee = (search: string) => {
             contentContainerStyle={styles.FlatListContainer}
             keyExtractor={item => item.id}
             renderItem={({item}) => {
-                console.log(item.index,item.id,item.type);
+                // console.log(item.index,item.id,item.type);
                 const valueTobePassed={
                     index: item.index||null,
                     id: item.id||null,
@@ -238,16 +238,19 @@ const searchCoffee = (search: string) => {
                     
                 }
                 console.log(valueTobePassed);
+                
                 return (
-                <TouchableOpacity
-                        onPress={() => {
-                            router.push({
-                                pathname: "/Details",
-                                params: valueTobePassed,
-                              })
-                        }}
-                        >
-                <CoffeeCard
+                    <Link href={
+                        {
+                            pathname:"/Details",
+                            params:{
+                                index: item.index,
+                                id: item.id,
+                                type: item.type,
+                            }}
+                    }>
+
+                    <CoffeeCard
                     id={item.id}
                     index={item.index}
                     type={item.type}
@@ -259,7 +262,7 @@ const searchCoffee = (search: string) => {
                     price={item.prices[2]}
                     buttonPressHandler={CoffeCardAddToCart}
                 />
-                </TouchableOpacity>
+                    </Link>
                 );
             }}
         />
@@ -276,6 +279,7 @@ const searchCoffee = (search: string) => {
             ]}
             keyExtractor={item => item.id}
             renderItem={({item}) => {
+                console.log(item.size)
                 return (
                 <Link href={{
                         pathname:"/Details",
@@ -283,6 +287,7 @@ const searchCoffee = (search: string) => {
                             index: item.index,
                             id: item.id,
                             type: item.type,
+                            size:item.size
                         }}
                 }>
                 <CoffeeCard
@@ -310,7 +315,7 @@ const styles = StyleSheet.create({
     ScreenContainer: {
         flex: 1,
         backgroundColor: COLORS.primaryBlackHex,
-        },
+    },
     ScrollViewFlex: {
         flexGrow: 1,
         },

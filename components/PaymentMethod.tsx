@@ -31,7 +31,7 @@ const PaymentMethod : React.FC<PaymentMethodProps> = ({
                         <FontAwesome
                             name={'google-wallet'}
                             color={COLORS.primaryOrangeHex}
-                            size={FONTSIZE.size_30}
+                            size={FONTSIZE.size_28}
                         />
                         <Text style={styles.PaymentTitle}>{name}</Text>
                     </View>
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     },
     PaymentTitle: {
         fontFamily: FONTFAMILY.poppins_semibold,
-        fontSize: FONTSIZE.size_16,
+        fontSize: FONTSIZE.size_14,
         color: COLORS.primaryWhiteHex,
     },
     PaymentPrice: {

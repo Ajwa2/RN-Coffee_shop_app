@@ -7,6 +7,7 @@ import HeaderBar from '@/components/HeaderBar'
 import PaymentFooter from '@/components/PaymentFooter'
 import EmptyListAnimation from '@/components/EmptyListAnimation'
 import CartItem from '@/components/CartItem'
+import { router } from 'expo-router'
 
     
 
@@ -23,10 +24,11 @@ const cart = ({navigation, route}: any) => {
         (state: any) => state.decrementCartItemQuantity,
     );
     const calculateCartPrice = useStore((state: any) => state.calculateCartPrice);
-    // const tabBarHeight = useBottomTabBarHeight();
 
     const buttonPressHandler = () => {
-        navigation.push('Payment', {amount: CartPrice});
+        router.push({
+            pathname:'/Payment', 
+            params:{amount: CartPrice}});
     };
 
     const incrementCartItemQuantityHandler = (id: string, size: string) => {
@@ -85,7 +87,7 @@ const cart = ({navigation, route}: any) => {
                         <PaymentFooter
                         buttonPressHandler={buttonPressHandler}
                         buttonTitle="Pay"
-                        price={{price: CartPrice, currency: '$'}}
+                        prices={{prices: CartPrice, currency: '$'}}
                         />
                         ) : (
                         <></>
@@ -107,6 +109,7 @@ const styles = StyleSheet.create({
     ScrollViewInnerView: {
         flex: 1,
         justifyContent: 'space-between',
+        marginBottom:40
         },
     ItemContainer: {
         flex: 1,

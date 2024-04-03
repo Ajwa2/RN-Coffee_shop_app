@@ -65,12 +65,12 @@ const styles = StyleSheet.create({
     },
     HeaderTitle: {
         fontFamily: FONTFAMILY.poppins_semibold,
-        fontSize: FONTSIZE.size_16,
+        fontSize: FONTSIZE.size_14,
         color: COLORS.primaryWhiteHex,
     },
     HeaderSubtitle: {
         fontFamily: FONTFAMILY.poppins_light,
-        fontSize: FONTSIZE.size_16,
+        fontSize: FONTSIZE.size_12,
         color: COLORS.primaryWhiteHex,
     },
     PriceContainer: {
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     },
     HeaderPrice: {
         fontFamily: FONTFAMILY.poppins_medium,
-        fontSize: FONTSIZE.size_18,
+        fontSize: FONTSIZE.size_14,
         color: COLORS.primaryOrangeHex,
     },
     ListContainer: {

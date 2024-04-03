@@ -19,7 +19,7 @@ const GradientBGIcon: React.FC<GradientBGIconProps> = ({name, color, size}) => {
                 end={{x: 1, y: 1}}
                 colors={[COLORS.primaryGreyHex, COLORS.primaryBlackHex]}
                 style={styles.LinearGradientBG}>
-                <FontAwesome color={color} size={size} />
+                <FontAwesome  color={color} size={size} />
             </LinearGradient>
         </View>
     )

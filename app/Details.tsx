@@ -1,29 +1,32 @@
 import React, { useState } from 'react'
 import { ScrollView, StatusBar, StyleSheet,
-    Text, View, TouchableWithoutFeedback,Pressable } from 'react-native'
+    Text, View, TouchableWithoutFeedback,Pressable, TouchableOpacity } from 'react-native'
 import { useStore } from './store/store'
 import { BORDERRADIUS, COLORS, FONTFAMILY, FONTSIZE, SPACING, } from '@/constants/Colors'
 import ImageBackgroundInfo from '@/components/ImageBackgroundInfo'
 import PaymentFooter from '@/components/PaymentFooter'
-import { useLocalSearchParams } from "expo-router";
+import { Link, router, useLocalSearchParams } from "expo-router";
 
 
 
 const Details = ({navigation, route}: any) => {
     const searchParams = useLocalSearchParams();
-console.log(searchParams);
+console.log('searchparams',searchParams);
+console.log('searchParamsIndex', searchParams.index);
     const { index } = useLocalSearchParams();
     const { id } = useLocalSearchParams<{ id: string }>();
     const { type } = useLocalSearchParams<{ type: string }>();
 
-    console.log(index,type,id);
+    console.log(index,id,type);
 
 const ItemOfIndex = useStore((state: any) =>
-       type == 'Coffee' ? state.CoffeeList : state.BeanList,
-    )[index];
+    searchParams.type == 'Coffee' ? state.CoffeeList : state.BeanList,
+    )[searchParams.index as string];
 
     
 console.log("ItemOfIndex",ItemOfIndex);
+console.log("ItemOfIndexP",ItemOfIndex.prices.map((data:any)=>data.size));
+console.log('ItemIndexC', ItemOfIndex.prices.map((d:any)=>d.currency))
 
 const addToFavoriteList = useStore((state: any) => state.addToFavoriteList);
 const deleteFromFavoriteList = useStore(
@@ -43,16 +46,18 @@ const BackHandler = () => {
     };
 
 
+    console.log('totalPrice',calculateCartPrice())
+
 const addToCarthandler = ({
-    id, index, name, roasted, imagelink_square, special_ingredient,
-    type, price }: any) => {
+    id, index, name, roasted, imagelink_square, 
+    special_ingredient,type, price }: any) => {
     addToCart({
         id, index, name, roasted, imagelink_square,
         special_ingredient, type,
         prices: [{...price, quantity: 1}],
     });
     calculateCartPrice();
-    navigation.navigate('Cart');
+    router.push('/Cart')
     };
 
 
@@ -101,26 +106,18 @@ return (
             )}
             <Text style={styles.InfoTitle}>Size</Text>
             <View style={styles.SizeOuterContainer}>
-            {ItemOfIndex.prices.map((data: any) => (
-                <Pressable
+            {ItemOfIndex.prices.map((data: any) =>( <TouchableOpacity 
                 key={data.size}
                 onPress={() => {setPrice(data)}}
-                style={[
-                    styles.SizeBox,{ borderColor:
-                        data.size == price.size? COLORS.primaryOrangeHex: COLORS.primaryDarkGreyHex},
-                ]}>
-                <Text
-                    style={[styles.SizeText,{fontSize:
-                        ItemOfIndex.type == 'Bean'? FONTSIZE.size_14: FONTSIZE.size_16,
-                        color:data.size == price.size? COLORS.primaryOrangeHex: COLORS.secondaryLightGreyHex}]}>
-                    {data.size}
-                </Text>
-                </Pressable>
-            ))}
+                style={[styles.SizeBox,{ borderColor:data.size == data.size? COLORS.primaryOrangeHex: COLORS.primaryDarkGreyHex},]}
+                ><Text style={[styles.SizeText,
+                    {fontSize: ItemOfIndex.type == 'Bean'? FONTSIZE.size_14: FONTSIZE.size_16,
+                            color:data.size == data.size? COLORS.primaryOrangeHex: COLORS.secondaryLightGreyHex}]}>{data.size}</Text></TouchableOpacity>)
+            )}
             </View>
         </View>
         <PaymentFooter
-            price={price}
+            prices={ItemOfIndex.prices}
             buttonTitle="Add to Cart"
             buttonPressHandler={() => {
             addToCarthandler({
@@ -182,6 +179,7 @@ const styles = StyleSheet.create({
     },
     SizeText: {
         fontFamily: FONTFAMILY.poppins_medium,
+        color:COLORS.primaryWhiteHex
     },
 })  
 

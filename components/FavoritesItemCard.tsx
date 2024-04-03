@@ -29,8 +29,29 @@ const FavoritesItemCard : React.FC<FavoritesItemCardProps> = ({
     favourite, ToggleFavouriteItem,
     }) => {
     return (
-        <View>
-            <Text>FavoritesItemCard</Text>
+        <View style={styles.CardContainer}>
+            <ImageBackgroundInfo
+                EnableBackHandler={false}
+                imagelink_portrait={imagelink_portrait}
+                type={type}
+                id={id}
+                favourite={favourite}
+                name={name}
+                special_ingredient={special_ingredient}
+                ingredients={ingredients}
+                average_rating={average_rating}
+                ratings_count={ratings_count}
+                roasted={roasted}
+                ToggleFavourite={ToggleFavouriteItem}
+            />
+            <LinearGradient
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 1}}
+                colors={[COLORS.primaryGreyHex, COLORS.primaryBlackHex]}
+                style={styles.ContainerLinearGradient}>
+                <Text style={styles.DescriptionTitle}>Description</Text>
+                <Text style={styles.DescriptionText}>{description}</Text>
+            </LinearGradient>
         </View>
     )
 }
@@ -39,6 +60,7 @@ const styles = StyleSheet.create({
     CardContainer: {
         borderRadius: BORDERRADIUS.radius_25,
         overflow: 'hidden',
+        marginBottom:40
     },
     ContainerLinearGradient: {
         gap: SPACING.space_10,

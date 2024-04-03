@@ -4,6 +4,7 @@ import React from 'react'
 import { BORDERRADIUS, COLORS, FONTFAMILY, FONTSIZE, SPACING, } from '@/constants/Colors'
 import { FontAwesome } from '@expo/vector-icons'
 import GradientBGIcon from './GradientBGIcon'
+import { LinearGradient } from 'expo-linear-gradient'
 
 
 interface ImageBackgroundInfoProps {
@@ -41,23 +42,31 @@ const ImageBackgroundInfo: React.FC<ImageBackgroundInfoProps> = ({
                     onPress={() => {
                     BackHandler();
                     }}>
-                    <GradientBGIcon
-                    name="left"
-                    color={COLORS.primaryLightGreyHex}
-                    size={FONTSIZE.size_16}
-                />
+                    <View style={styles.Container}>
+                        <LinearGradient
+                            start={{x: 0, y: 0}}
+                            end={{x: 1, y: 1}}
+                            colors={[COLORS.primaryGreyHex, COLORS.primaryBlackHex]}
+                            style={styles.LinearGradientBG}>
+                            <FontAwesome name='chevron-left' color={COLORS.primaryLightGreyHex} size={FONTSIZE.size_16}/>
+                        </LinearGradient>
+                    </View>
                 </Pressable>
                 <Pressable
                     onPress={() => {
                     ToggleFavourite(favourite, type, id);
                     }}>
-                    <GradientBGIcon
-                    name="like"
-                    color={
-                        favourite ? COLORS.primaryRedHex : COLORS.primaryLightGreyHex
-                    }
-                    size={FONTSIZE.size_16}
-                />
+                    <View style={styles.Container}>
+                        <LinearGradient
+                            start={{x: 0, y: 0}}
+                            end={{x: 1, y: 1}}
+                            colors={[COLORS.primaryGreyHex, COLORS.primaryBlackHex]}
+                            style={styles.LinearGradientBG}>
+                            <FontAwesome name='heart' 
+                                color={favourite ? COLORS.primaryRedHex : COLORS.primaryLightGreyHex} 
+                                size={FONTSIZE.size_16}/>
+                        </LinearGradient>
+                    </View>
                 </Pressable>
             </View>
             ) : (
@@ -66,13 +75,17 @@ const ImageBackgroundInfo: React.FC<ImageBackgroundInfoProps> = ({
                     onPress={() => {
                     ToggleFavourite(favourite, type, id);
                     }}>
-                    <GradientBGIcon
-                    name="like"
-                    color={
-                    favourite ? COLORS.primaryRedHex : COLORS.primaryLightGreyHex
-                    }
-                    size={FONTSIZE.size_16}
-                />
+                    <View style={styles.Container}>
+                        <LinearGradient
+                            start={{x: 0, y: 0}}
+                            end={{x: 1, y: 1}}
+                            colors={[COLORS.primaryGreyHex, COLORS.primaryBlackHex]}
+                            style={styles.LinearGradientBG}>
+                            <FontAwesome name='heart' 
+                                color={favourite ? COLORS.primaryRedHex : COLORS.primaryLightGreyHex} 
+                                size={FONTSIZE.size_16}/>
+                        </LinearGradient>
+                    </View>
                 </Pressable>
             </View>
         )}
@@ -81,37 +94,35 @@ const ImageBackgroundInfo: React.FC<ImageBackgroundInfoProps> = ({
                     <View style={styles.ImageInfoInnerContainer}>
                     <View style={styles.InfoContainerRow}>
                         <View>
-                        <Text style={styles.ItemTitleText}>{name}</Text>
-                        <Text style={styles.ItemSubtitleText}>
-                            {special_ingredient}
-                        </Text>
+                            <Text style={styles.ItemTitleText}>{name}</Text>
+                            <Text style={styles.ItemSubtitleText}>
+                                {special_ingredient}
+                            </Text>
                         </View>
                         <View style={styles.ItemPropertiesContainer}>
                         <View style={styles.ProperFirst}>
                             <FontAwesome
-                            // name={type == 'Bean' ? 'bean' : 'beans'}
-                            size={type == 'Bean' ? FONTSIZE.size_18 : FONTSIZE.size_24}
+                            name={type == 'Bean' ? 'coffee' : 'coffee'}
+                            size={type == 'Bean' ? FONTSIZE.size_16 : FONTSIZE.size_20}
                             color={COLORS.primaryOrangeHex}
                             />
                             <Text
                             style={[
                                 styles.PropertyTextFirst,{
-                                marginTop:
-                                type == 'Bean'
-                                    ? SPACING.space_4 + SPACING.space_2
-                                    : 0,
+                                marginTop:type == 'Bean'
+                                    ? SPACING.space_4 : 0,
                                 },
                                 ]}>
                                 {type}
                             </Text>
                         </View>
                         <View style={styles.ProperFirst}>
-                        <FontAwesome
-                            // name={type == 'Bean' ? 'location' : 'drop'}
-                            size={FONTSIZE.size_16}
-                            color={COLORS.primaryOrangeHex}
-                        />
-                        <Text style={styles.PropertyTextLast}>{ingredients}</Text>
+                            <FontAwesome
+                                name={type == 'Bean' ? 'location-arrow' : 'dropbox'}
+                                size={FONTSIZE.size_16}
+                                color={COLORS.primaryOrangeHex}
+                            />
+                            <Text style={styles.PropertyTextLast}>{ingredients}</Text>
                         </View>
                     </View>
                     </View>
@@ -120,7 +131,7 @@ const ImageBackgroundInfo: React.FC<ImageBackgroundInfoProps> = ({
                             <FontAwesome
                                 name={'star'}
                                 color={COLORS.primaryOrangeHex}
-                                size={FONTSIZE.size_20}
+                                size={FONTSIZE.size_18}
                             />
                             <Text style={styles.RatingText}>{average_rating}</Text>
                             <Text style={styles.RatingCountText}>({ratings_count})</Text>
@@ -129,7 +140,7 @@ const ImageBackgroundInfo: React.FC<ImageBackgroundInfoProps> = ({
                             <Text style={styles.RoastedText}>{roasted}</Text>
                         </View>
                     </View>
-                </View>
+                    </View>
                 </View>
                 </ImageBackground>
             </View>
@@ -138,6 +149,22 @@ const ImageBackgroundInfo: React.FC<ImageBackgroundInfoProps> = ({
 
 
 const styles = StyleSheet.create({
+    Container:{
+        borderWidth: 2,
+        borderColor: COLORS.secondaryDarkGreyHex,
+        borderRadius: SPACING.space_12,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: COLORS.secondaryDarkGreyHex,
+        overflow: 'hidden',
+    },
+    LinearGradientBG:{
+        height: SPACING.space_36,
+        width: SPACING.space_36,
+        alignItems: 'center',
+        justifyContent: 'center',
+
+    },
     ItemBackgroundImage: {
         width: '100%',
         aspectRatio: 20 / 25,
@@ -173,7 +200,7 @@ const styles = StyleSheet.create({
     },
     ItemTitleText: {
         fontFamily: FONTFAMILY.poppins_semibold,
-        fontSize: FONTSIZE.size_24,
+        fontSize: FONTSIZE.size_20,
         color: COLORS.primaryWhiteHex,
     },
     ItemSubtitleText: {
@@ -184,11 +211,11 @@ const styles = StyleSheet.create({
     ItemPropertiesContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: SPACING.space_20,
+        gap: SPACING.space_10,
     },
     ProperFirst: {
-        height: 55,
-        width: 55,
+        height: 40,
+        width: 40,
         borderRadius: BORDERRADIUS.radius_15,
         justifyContent: 'center',
         alignItems: 'center',
@@ -203,7 +230,7 @@ const styles = StyleSheet.create({
         fontFamily: FONTFAMILY.poppins_medium,
         fontSize: FONTSIZE.size_10,
         color: COLORS.primaryWhiteHex,
-        marginTop: SPACING.space_2 + SPACING.space_4,
+        marginTop:  SPACING.space_4,
     },
     RatingContainer: {
         flexDirection: 'row',
@@ -212,17 +239,17 @@ const styles = StyleSheet.create({
     },
     RatingText: {
         fontFamily: FONTFAMILY.poppins_semibold,
-        fontSize: FONTSIZE.size_18,
+        fontSize: FONTSIZE.size_16,
         color: COLORS.primaryWhiteHex,
     },
     RatingCountText: {
         fontFamily: FONTFAMILY.poppins_regular,
-        fontSize: FONTSIZE.size_12,
+        fontSize: FONTSIZE.size_10,
         color: COLORS.primaryWhiteHex,
     },
     RoastedContainer: {
-        height: 55,
-        width: 55 * 2 + SPACING.space_20,
+        height: 40,
+        width: 40 * 2 + SPACING.space_20,
         borderRadius: BORDERRADIUS.radius_15,
         justifyContent: 'center',
         alignItems: 'center',
